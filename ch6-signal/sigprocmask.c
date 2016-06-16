@@ -18,6 +18,8 @@ void printPend(sigset_t *set)
 			putchar('1');
 		else
 			putchar('0');
+
+		putchar('-');
 	}
 	puts("");
 }
