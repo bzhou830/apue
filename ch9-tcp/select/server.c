@@ -4,10 +4,9 @@
 	> Mail: 
 	> Created Time: 2016年07月13日 星期三 14时21分11秒
  ************************************************************************/
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>          /* See NOTES */
+#include <sys/types.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -23,14 +22,17 @@
 
 int main()
 {
-
-    int maxfd, listenfd, confd, clientaddrlen,sockfd, n, i = 0;
-    struct sockaddr_in serveraddr, clientaddr;
-    char str[INET_ADDRSTRLEN];                      //存放IP地址，点分十进制表示
-    fd_set rset, allset;                            //select 使用
-    char buf[MAXLINE];                              //传输数据
-    int nReady, client[FD_SETSIZE],maxi;
-
+    //maxfd:        打开的最大文件描述符标号
+    //listenfd:     监听描述符
+    //confd:        链接描述符
+    //clientaddrlen 客户端地址长度
+    //sockfd:       暂存量
+    int maxfd, listenfd, confd, clientaddrlen, sockfd, n, i = 0;
+    struct sockaddr_in serveraddr, clientaddr;                      //服务器端地址，客户端地址
+    char str[INET_ADDRSTRLEN];                                      //存放IP地址，点分十进制表示
+    fd_set rset, allset;                                            //select 使用
+    char buf[MAXLINE];                                              //传输数据
+    int nReady, client[FD_SETSIZE], maxi;                           //               
 
     //1. 创建一个socket
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -44,15 +46,14 @@ int main()
 
     //3. 设置监听
     listen(listenfd, 20);
-    //printf("Accepting Connecting...\n");
 
     maxfd = listenfd;
     maxi = 0;
 
-    for(i=0; i<FD_SETSIZE; ++i);                   //初始化clinet[]
+    for(i=0; i<FD_SETSIZE; ++i);                                    //初始化clinet[]
         client[i] = -1;
 
-    FD_ZERO(&allset);                               //select监控文件描述符集
+    FD_ZERO(&allset);                                               //select监控文件描述符集
     FD_SET(listenfd, &allset);
 
     for(;;)
@@ -60,13 +61,13 @@ int main()
         rset = allset;
         nReady = select(maxfd + 1, &rset, NULL, NULL, NULL);
 
-        if(nReady < 0)                              //select出错
+        if(nReady < 0)                                              //select出错
         {
             perror("select err\n");
             break;
         }
 
-        if(FD_ISSET(listenfd, &rset))               //新链接的客户端
+        if(FD_ISSET(listenfd, &rset))                               //新链接的客户端
         {
             clientaddrlen = sizeof(clientaddr);
             confd = accept(listenfd, (struct sockaddr *)&clientaddr, &clientaddrlen);
@@ -97,7 +98,7 @@ int main()
             if(--nReady == 0) continue;
         }
 
-        for(i=0; i<=maxi; ++i)                          //遍历看哪个客户端有数据就绪
+        for(i=0; i<=maxi; ++i)                                      //遍历看哪个客户端有数据就绪
         {
             if((sockfd = client[i]) < 0) continue;
             if(FD_ISSET(sockfd, &rset))
