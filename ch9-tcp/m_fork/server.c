@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: server.c
-	> Author: 
-	> Mail: 
-	> Created Time: 2016年07月13日 星期三 14时21分11秒
- ************************************************************************/
-
 #include <stdio.h>
 #include <sys/types.h>          /* See NOTES */
 #include <sys/socket.h>
@@ -25,7 +18,6 @@ int main()
 
     //1. 创建一个socket
     fd = socket(AF_INET, SOCK_STREAM, 0);
-    
     //2. 绑定一个端口
     bzero(&serveraddr, sizeof(serveraddr));
     serveraddr.sin_family = AF_INET;
@@ -71,18 +63,11 @@ int main()
             return 0;
         }
         else if(pid > 0)
-        {
             close(confd);
-        }
         else
-        {
             printf("fork err\n");
-        }
     }
     close(fd);
     return 0;
 }
-
-
-
 
