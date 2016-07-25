@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
     struct protoent* protocol;
     struct hostent* host;
 
-    //setuid(getuid());
+    setuid(getuid());
 
     if(argc < 2)//调用命令行参数检查
     {
