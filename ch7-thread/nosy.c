@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: nosy.c
-	> Author: 
-	> Mail: 
-	> Created Time: 2016年07月12日 星期二 10时03分47秒
- ************************************************************************/
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<pthread.h>
@@ -26,7 +19,6 @@ void *doit(void *arg)
     return NULL;
 }
 
-
 int main()
 {
     pthread_t tidA, tidB;
@@ -39,7 +31,4 @@ int main()
 
     return 0;
 }
-
-
-
 
