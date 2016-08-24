@@ -8,7 +8,6 @@ int counter;
 
 void *doit(void *arg)
 {
-
     int i = 0, val;
     for(i = 0; i < NLOOP; ++i)
     {
