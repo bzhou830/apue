@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: consumer.c
-	> Author: 
-	> Mail: 
-	> Created Time: 2016年07月12日 星期二 10时49分59秒
- ************************************************************************/
-
 #include<stdio.h>
 #include<pthread.h>
 #include<stdlib.h>
@@ -23,7 +16,6 @@ pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 void *consumer(void *arg)
 {
     struct msg *mp;
-
     for(;;)
     {
         pthread_mutex_lock(&lock);
@@ -36,7 +28,6 @@ void *consumer(void *arg)
         free(mp);
         sleep(rand() % 5);
     }
-
     return NULL;
 }
 
@@ -54,7 +45,6 @@ void *producer(void *arg)
         pthread_mutex_unlock(&lock);
         pthread_cond_signal(&has_product);
         sleep(rand()%5);
-
     }
     return NULL;
 }
