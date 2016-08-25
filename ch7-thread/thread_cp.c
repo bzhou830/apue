@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: thread_cp.c
-	> Author: Robin
-	> Mail: chou_robin@163.com 
-	> Created Time: 2016年07月11日 星期一 23时00分04秒
- ************************************************************************/
-
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -29,14 +22,12 @@ struct thread_block
 	size_t cp;
 };
 
-
 size_t get_filesize(int fd)
 {
 	struct stat st;
 	fstat(fd, &st);
 	return st.st_size;
 }
-
 
 /*线程函数体*/
 void *thread_copy_fun(void *arg)
@@ -84,7 +75,6 @@ void *thread_copy_fun(void *arg)
 		}
 	}
 }
-
 
 void * thread_ui(void *arg)
 {
@@ -155,23 +145,18 @@ int main(int argc, char *argv[])
 		pthread_create(&tid[i], NULL, thread_copy_fun, &(blocks[i]));
 	}
 
-
 	pthread_t ui_tid;
 
 	pthread_create(&ui_tid, NULL, thread_ui, blocks);
 
-	
 	for(i=0; i<thread_size; ++i)								//阻塞等待
 	{
 		pthread_join(tid[i], NULL);
 	}
-
 	pthread_join(ui_tid, NULL);
-
 	free(blocks);												//释放栈空间
 	close(infd);												//关闭文件描述符
 	close(outfd);
-
 	return 0;
 }
 
