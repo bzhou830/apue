@@ -10,9 +10,6 @@
 
 typedef struct __Info
 {
-	char buf[1024];	
-typedef struct __Info
-{
 	char buf[1024];			//用户输入信息
 	unsigned int pipeNum;	//统计管道的个数
 }Info;
